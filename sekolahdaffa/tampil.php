@@ -1,5 +1,7 @@
 <?php
 require "koneksi.php";
+<?php
+require "koneksi.php";
 
 $hasil = $koneksi->query("SELECT * FROM siswa ORDER BY id DESC");
 ?>
@@ -20,6 +22,7 @@ $hasil = $koneksi->query("SELECT * FROM siswa ORDER BY id DESC");
         <th>Nama</th>
         <th>Email</th>
         <th>Kelas</th>
+        <th>Aksi</th>
     </tr>
     <?php $no = 1; ?>
     <?php while ($row = $hasil->fetch_assoc()): ?>
@@ -28,6 +31,11 @@ $hasil = $koneksi->query("SELECT * FROM siswa ORDER BY id DESC");
         <td><?= htmlspecialchars($row["nama"]) ?></td>
         <td><?= htmlspecialchars($row["email"]) ?></td>
         <td><?= htmlspecialchars($row["kelas"]) ?></td>
+        <td>
+            <!-- Parameter ID dikirim lewat URL (GET) -->
+            <a href="edit.php?id=<?= $row['id'] ?>">Edit</a> | 
+            <a href="hapus.php?id=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+        </td>
     </tr>
     <?php endwhile; ?>
 </table>
